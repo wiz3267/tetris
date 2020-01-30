@@ -1,0 +1,1 @@
+void graph_draw_num(int x, int y, int num);

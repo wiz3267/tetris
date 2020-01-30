@@ -1,0 +1,109 @@
+#include "figure.h"
+
+#include "screen.h"
+#include "sprite.h"
+
+#include <stdlib.h>
+
+extern SCREEN scr;
+SPRITE  SpriteFigure(&scr);
+SPRITE	SpriteBox(&scr);
+
+//************************************************************************
+//******************* класс FIGURE - мн-во фигур тетриса *****************
+//************************************************************************
+
+//конструктор
+FIGURE::FIGURE() : x(0), y(0), Color(7), Number(0), Aspect(0)
+{
+
+}
+
+//нарисовать фигуру в стакане
+void FIGURE::Show()
+{
+	Show(Color);
+}
+
+void FIGURE::RandomSym(char * symbols)
+{
+	char sym;
+	int Z=0;
+	SPRITE::IMAGE &im=SpriteFigure.GetImage(Number*4+Aspect%4);
+	for(int i=0; i<im.Hei; i++)
+	for(int j=0; j<im.Len; j++)
+		if ( sym=im.Read(j,i) )
+		{
+		 im.Write(j,i, symbols[Z]);
+		 Z++;
+		}
+}
+//показываем фигуру на экране
+void FIGURE::Show(int x,int y)
+{
+	char sym;
+	SPRITE::IMAGE &im=SpriteFigure.GetImage(Number*4+Aspect%4);
+	for(int i=0; i<im.Hei; i++)
+	for(int j=0; j<im.Len; j++)
+		if ( sym=im.Read(j,i) )
+		{
+			//SpriteBox.Show(x+j*8,y+i*8, Color);
+			//int Len=7,Hei=7;
+			int Len=Glass->BoxLen, Hei=Glass->BoxHei;
+
+
+			if (Len < 2) Len=2;
+			if (Len > 7) Len=7;
+
+			if (Hei < 2) Hei=2;
+			if (Hei > 7) Hei=7;
+
+			Len=10;
+			Hei=10;
+
+
+			scr.rectangle(x + j*Len, y + i*Hei, Len-1, Hei-1, 15);
+			scr.x=x+j*Len;
+			scr.y=y+i*Hei;
+			scr.color=0;
+			scr<<sym;
+		}
+}
+
+//нарисовать фигуру в стакане
+void FIGURE::Show(int c)
+{
+	char sym;
+	SPRITE::IMAGE &im=SpriteFigure.GetImage(Number*4+Aspect%4);
+	for(int i=0; i<im.Hei; i++)
+	for(int j=0; j<im.Len; j++)
+	{
+		if ( sym=im.Read(j,i) )
+		{
+			BOX yb;
+			yb.t=c;
+			yb.sym=sym;
+			Glass->Write(x+j,y+i, yb);
+		}
+	}
+}
+
+
+int FIGURE::Check()
+{
+	SPRITE::IMAGE &im=SpriteFigure.GetImage(Number*4+Aspect%4);
+
+	for(int i=0; i<im.Hei; i++)
+	for(int j=0; j<im.Len; j++)
+	{
+		if ( im.Read(j,i) )
+		{
+			if (Glass->Read(x+j, y+i).t)
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+

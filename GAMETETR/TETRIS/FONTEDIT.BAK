@@ -1,0 +1,141 @@
+#include "SCREEN.H"
+#include "KEYBOARD.H"
+#include "GRAPH.H"
+
+extern KEYBOARD Keyb;
+
+extern unsigned char Font8x8[2048];
+
+void FontEditor(char * sym)
+{
+	int stepx=8;
+	int stepy=8;
+	int lenx=8, leny =8;
+
+	int cur_x=0, cur_y=0;
+
+	unsigned char code=48;
+
+	static int cnt;
+
+
+
+	do while (1)
+	{
+	scr.clear();
+
+	for(int y=0; y<8; y++)
+	{
+		unsigned char mask=1;
+		for(int x=7; x>=0; x--)
+		{
+			unsigned char s=Font8x8[code*8+y];
+
+			int color=19;
+
+			int bold=0;
+
+			if (s&mask)
+			{
+				color=15;
+				bold=1;
+			}
+
+			if (bold)
+			{
+				scr.rectangle(stepx*x, stepy*y, lenx-1, leny-1, 15);
+			}
+			else
+			{
+				scr.rectangle(stepx*x, stepy*y, lenx-1, leny-1, color);
+			}
+
+			if (x==cur_x && y==cur_y)
+			{
+
+				if (Keyb[KEY_SPACE])
+				{
+					Font8x8[code*8+y] ^= mask;
+
+					Keyb.Set(KEY_SPACE,0);
+
+				}
+
+
+				if (cnt<100)
+				{
+					scr.rectangle(stepx*x, stepy*y, lenx-1, leny-1, 9);
+				}
+
+				if (cnt>300) cnt=0;
+
+			}
+
+			mask<<=1;
+		}
+	}
+
+	cnt++;
+
+	scr.locateXY(0,90);
+	scr<<"ПРИВЕТ!\n";
+
+	scr<<"1234567890\n";
+
+	char *s="Господи, помилуй меня грешного! Я виноват";
+
+	for(int j=0; j<4; j++)
+	{
+	int k=0;
+	for(int x=0; x<320; x+=8-j)
+	{
+		if (s[k]==0) break;
+		if (k&1) scr.color=29;
+		else scr.color=27;
+		scr.locateXY(x,140+j*8);
+		scr<<s[k];
+		k++;
+	}
+	}
+
+
+
+	scr.update();
+
+	if (Keyb[KEY_PAGEUP])
+	{
+		Keyb.Set(KEY_PAGEUP,0);
+		code++;
+	}
+	if (Keyb[KEY_PAGEDOWN])
+	{
+		Keyb.Set(KEY_PAGEDOWN,0);
+		code--;
+	}
+	if (Keyb[KEY_ESC]) return;
+
+
+	if (Keyb[KEY_RIGHT]) cur_x++,cnt=0;
+	if (Keyb[KEY_LEFT]) cur_x--,cnt=0;
+	if (Keyb[KEY_UP]) cur_y--,cnt=0;
+	if (Keyb[KEY_DOWN]) cur_y++,cnt=0;
+
+	if (Keyb[KEY_F2])
+	{
+		scr.FontSave();
+	}
+
+	Keyb.Set(KEY_RIGHT,0);
+	Keyb.Set(KEY_LEFT,0);
+	Keyb.Set(KEY_UP,0);
+	Keyb.Set(KEY_DOWN,0);
+
+	if (cur_x>=lenx) cur_x=0;
+	if (cur_x < 0) cur_x=lenx-1;
+
+	if (cur_y>=leny) cur_y=0;
+	if (cur_y<0) cur_y=leny-1;
+
+} while (1);
+	
+}

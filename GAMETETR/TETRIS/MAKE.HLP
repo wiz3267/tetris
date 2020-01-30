@@ -1,0 +1,24 @@
+MAKE Version 3.6  Copyright (c) 1992 Borland International
+Syntax: MAKE [options ...] target[s]
+    -B               Builds all targets regardless of dependency dates
+    -Dsymbol         Defines symbol
+    -Dsymbol=string  Defines symbol to string
+    -Idirectory      Names an include directory
+    -K               Keeps (does not erase) temporary files created by MAKE
+    -N               Increases MAKE's compatibility with NMAKE
+    -W               Writes all non-string options back to the .EXE file
+    -Usymbol         Undefine symbol
+    -ffilename       Uses filename as the MAKEFILE
+    -a               Performs auto-dependency checks for include files
+    -e               Ignores redefinition of environment variable macros
+    -i               Ignores errors returned by commands
+    -m               Displays the date and time stamp of each file
+    -n               Prints commands but does not do them
+    -p               Displays all macro definitions and implicit rules
+    -q               Returns zero if target is up-to-date and nonzero
+                     if it is not (for use in batch files)
+    -r               Ignores rules and macros defined in BUILTINS.MAK
+    -s               Silent, does not print commands before doing them
+    -? or -h         Prints this message
+      Options marked with '+' are on by default. To turn off a default
+      option follow it by a '-', for example: -a-

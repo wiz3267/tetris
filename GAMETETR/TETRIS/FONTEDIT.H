@@ -1,0 +1,1 @@
+void FontEditor(char * sym);

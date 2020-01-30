@@ -1,0 +1,35 @@
+#include "SCREEN.H"
+#include "KEYBOARD.H"
+
+extern SCREEN scr;
+extern KEYBOARD Keyb;
+
+void TetrisHelp()
+{
+		scr.color=15;
+		scr.clear();
+		char * help=
+		"F1 help\n"
+		"F5 effects\n"
+		"F9 game info\n"
+		"F10 real time\n"
+		"F11 table record \n"
+		"F12 run line\n"
+		"<PAD4> prev part\n"
+		"<PAD6> next part\n"
+		"<PAD1> random part\n"
+		"<PAGEUP><PAGEDOWN> change size RunLine\n"
+		"<LEFT CTRL> <+><->  change BOX LEN\n"
+		"<LEFT SHIFT> <+><-> change BOX HEI\n"
+		"<LEFT CTRL> <1><2> change GLASS LEN\n"
+		"<LEFT CTRL> <3><4> change GLASS HEI\n"
+		;
+
+		scr.x=0;
+		scr.y=0;
+		scr<<help;
+
+		scr.update();
+
+		Keyb.ReadScan();
+}
