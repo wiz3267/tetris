@@ -43,10 +43,8 @@ int TetrisStart()
 
 	MidiStop();
 	music(0,0);
-
 	//запускаем таймер на частоту
 	Timer.Restart(70);
-
 	char name[]="bmp\\n1.bmp";
 	if (rand()%2) name[5]++;
 
@@ -105,7 +103,6 @@ rest:
 		scr.update();
 		Keyb.ReadScan();
 	}
-
 
 	Kadr++;
 

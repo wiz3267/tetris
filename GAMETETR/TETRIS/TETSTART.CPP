@@ -145,7 +145,6 @@ rest:
 
 	scr.SetColorRegister(15, 255,255,255);
 	scr.color=15;
-
 	DrawRunLine(200-BigSymScale*8);
 
 	if (need_wait)	scr.wait();
@@ -159,8 +158,6 @@ rest:
 	{
 		music(0,0);
 	}
-
-
 	if (Keyb[KEY_R]) goto rest;
 	if (Keyb[KEY_ESC]) break;
 	if (Keyb[KEY_F12]) return 0;
@@ -171,10 +168,8 @@ rest:
 		scr.DecrementPalette();
 		scr.DecrementPalette();
 		scr.DecrementPalette();
-
 		scr.wait();
 	}
-
 	scr.clear();
 	scr.update();
 
@@ -186,8 +181,6 @@ rest:
 	Msg("  ‡€ƒ“‡Š€, †€‹“‰‘’€ „†„ˆ’… ...  ",1);
 
 	for(int vc=0; vc<60; vc++) scr.wait();
-
 	//Msg("‡„€‚‹Ÿ ‚‘…• ‘‚ˆ• „“‡…‰ ‘ †„…‘’‚Œ",1);
-
 	return 1;
 }
