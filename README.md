@@ -1,2 +1,2 @@
 Всё скачать через Clone/Download
-Запускать .BAT файл
+Запускать RUN_TETRIS_BUKVI.BAT файл
