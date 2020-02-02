@@ -1,1 +1,2 @@
-this tetris written to DOS, run in DOS BOX
+Всё скачать через Clone/Download
+Запускать .BAT файл
